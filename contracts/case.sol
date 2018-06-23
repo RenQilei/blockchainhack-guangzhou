@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.0;
 
 contract Case {
     
@@ -45,13 +45,15 @@ contract Case {
     
     constructor () public {
         user = msg.sender;
+        
     }
     
     // All authorisations
     mapping(address => Authorisation) public authorisations;
     
     // Organisation requests to modify
-    function requestToModify() public returns (address requester, uint authWeight) {
+    function requestToModify(address patient) public returns (address requester, uint authWeight) {
+        require(patient == user);
         authorisations[msg.sender].authWeight = 8;
         
         return (msg.sender, authorisations[msg.sender].authWeight);
@@ -65,7 +67,7 @@ contract Case {
         return (authUser, authorisations[authUser].authWeight);
     }
     
-    // Organisation modify the reports
+    // Organisation modifies the reports
     function modifyReport(uint age, string gender, uint bodyTemperature, uint heartRate, bool isQunisy, string note, string prescription) public {
         require(authorisations[msg.sender].authWeight == 9);
         
