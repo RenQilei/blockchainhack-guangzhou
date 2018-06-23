@@ -2,9 +2,10 @@
   "server": {
     "baseDir": ["./src", "./build/contracts"]
   },
-  "port": 8081,
+  "port": 8001,
   "ui": {
-    "port": 8082
+    "port": 8002
   }
 
 }
+
