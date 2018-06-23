@@ -1,2 +1,0 @@
-# BlockChainHackathon, Guangzhou
-HAVE FUN :)
