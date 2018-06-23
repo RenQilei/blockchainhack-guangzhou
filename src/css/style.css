@@ -1,45 +1,72 @@
-.BiggerGao {
-  height: 71px;
-  font-family: AgencyFB-Reg;
-  font-size: 60px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #4a90e2;
-}
-.container {
-  height: 100%;
-}
-.btn-primary {
-  margin: 0 auto;
-  width: 100%;
-  border-radius: 3px;
-  background-color: #ffffff;
-  color: #4a90e2;
-  box-shadow: 0 2px 4px 0 rgba(205, 205, 205, 0.5);
+body {
+    margin: 0 auto;
+    width: 420px;
+    min-height: 800px !important;
+    border: 1px solid #4a90e2;
 }
 
-.top-content {
-  margin: 0 auto !important;
-  width: 50%;
-  text-align: center;
-  padding: 25px 0px 25px 0px;
-  border-bottom: 1px solid #ccc;
-}
 .main-content {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 25%;
-  height: 25%;
+    width: 100% !important;
+    padding: 60px 50px !important;
 }
+  
+.top-content {
+    /* width: 100% !important;
+    padding: 60px 50px !important; */
+    text-align: left !important;
+}
+  
+.BiggerGao {
+    width: 200px;
+}
+
+.BiggerGao img {
+    width: 100%;
+}
+
+.client-name {
+    width: 72px;
+    height: 33px;
+    margin-top: 10px;
+    font-family: PingFangSC;
+    font-size: 24px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #d6d6d6;
+}
+    
+.btn-primary {
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 3px;
+    background-color: #ffffff;
+    color: #4a90e2;
+    box-shadow: 0 2px 4px 0 rgba(205, 205, 205, 0.5);
+}
+    
 .form-control {
-  border: 1px solid #4a90e2;
+    height: 80px;
+    font-size: 24px;
+    border: 1px solid #4a90e2;
 }
-#btn-request-modify, #input-patient-address {
-  max-height: 81px;
-  min-height: 30px;
+
+/* doctor */
+#doctor-index-input {
+    margin-top: 180px;
 }
+
+#btn-request-modify {
+    border-radius: 3px;
+    background-image: linear-gradient(to bottom, #00d0ec, #00a3ff);
+    box-shadow: 0 2px 23px -5px rgba(0, 108, 255, 0.5);
+    color: #ffffff;
+}
+
+/* user */
+#user-index-float-user-icon {
+
+}
+    

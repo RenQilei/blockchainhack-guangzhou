@@ -26,7 +26,7 @@ App = {
     /*
      * Replace me...
      */
-    $.getJSON('Case.json', function(data) {
+    $.getJSON('http://localhost:8001/Case.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract
       var CaseArtifact = data;
       App.contracts.Case = TruffleContract(CaseArtifact);

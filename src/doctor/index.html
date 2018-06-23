@@ -8,8 +8,8 @@
     <title>Patients</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,43 +19,36 @@
     <![endif]-->
   </head>
   <body>
-    <!-- <div class="container"> -->
+    <div class="main-content">
       <div class="top-content">
-        <div class="BiggerGao">Bigger.Gao</div>
-        <div>机构端</div>
+        <div class="BiggerGao">
+          <img src="../images/Bigger_Gao_blue.png">
+        </div>
+        <div class="client-name">机构端</div>
       </div>
-      <div class="main-content">
+
+      <div id="doctor-index-input">
           <div class="form-group">
               <input class="form-control" id="input-patient-address" placeholder="患者识别码">
           </div>
           <div class="dropdown">
-              <button class="btn btn-primary" id="btn-request-modify" type="button">
-                  获取医院诊断-完整健康档案
+              <button class="btn btn-primary form-control" id="btn-request-modify" type="button">
+                  请求获取医疗档案
               </button>
               <!-- <button class="btn btn-primary" id="btn-request-read" type="button">
                   药房
               </button> -->
           </div>
           <div id="display-address"></div>
-        <!-- <form>
-            <div class="form-group">
-                <input class="form-control" placeholder="患者识别码">
-              </div>
-              <div class="dropdown">
-                  <button class="btn btn-primary" type="button">
-                      获取医院诊断-完整健康档案
-                  </button>
-              </div>
-        </form> -->
       </div>
-    <!-- </div> -->
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/web3.min.js"></script>
-    <script src="js/truffle-contract.js"></script>
-    <script src="js/app.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/web3.min.js"></script>
+    <script src="../js/truffle-contract.js"></script>
+    <script src="../js/app.js"></script>
   </body>
 </html>
