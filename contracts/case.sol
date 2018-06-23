@@ -43,17 +43,12 @@ contract Case {
     // All reports for users
     Report[] reports;
     
-    constructor () public {
-        user = msg.sender;
-        
-    }
-    
     // All authorisations
     mapping(address => Authorisation) public authorisations;
     
     // Organisation requests to modify
     function requestToModify(address patient) public returns (address requester, uint authWeight) {
-        require(patient == user);
+        
         authorisations[msg.sender].authWeight = 8;
         
         return (msg.sender, authorisations[msg.sender].authWeight);
@@ -61,7 +56,7 @@ contract Case {
     
     // User authorises to modify
     function authToModify(address authUser) public returns (address requester, uint authWeight) {
-        require(msg.sender == user && authorisations[authUser].authWeight == 8);
+        require(authorisations[authUser].authWeight == 8);
         authorisations[authUser].authWeight = 9;
         
         return (authUser, authorisations[authUser].authWeight);
