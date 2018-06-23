@@ -33,8 +33,6 @@ App = {
     
       // Set the provider for our contract
       App.contracts.Case.setProvider(App.web3Provider);
-      web3.eth.defaultAccount = web3.eth.accounts[0];
-      web3.eth.contract();
     
       // Use our contract to retrieve and mark the adopted pets
       // return App.markAdopted();
@@ -61,7 +59,7 @@ App = {
     console.log(patientAddress);
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
-          console.log("1");
+        console.log("1");
           console.log(error);
       }
       var account = accounts[0];
