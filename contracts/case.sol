@@ -43,7 +43,7 @@ contract Case {
     // All reports for users
     Report[] reports;
 
-    uint[] reportIndexes;
+    uint index = 0;
     
     // All authorisations
     mapping(address => Authorisation) public authorisations;
@@ -77,32 +77,22 @@ contract Case {
     
     // Organisation modifies the reports
     function modifyReport(uint age, string gender, uint bodyTemperature, uint heartRate, bool isQunisy, string note, string prescription) public {
-        // require(authorisations[msg.sender].authWeight == 9);
+        require(authorisations[msg.sender].authWeight == 9);
         
-        uint currentTime = now;
-        
-        reports[currentTime].age = age;
-        reports[currentTime].gender = gender;
-        reports[currentTime].bodyTemperature = bodyTemperature;
-        reports[currentTime].heartRate = heartRate;
-        reports[currentTime].isQunisy = isQunisy;
-        reports[currentTime].note = note;
-        reports[currentTime].prescription = prescription;
-        reports[currentTime].doctor = msg.sender;
-        reports[currentTime].timestamp = currentTime;
-        
-        reportIndexes[reportIndexes.length] = currentTime;
+        reports.push(Report(age, gender, bodyTemperature, heartRate, isQunisy,note, prescription, msg.sender, now));
+        index = index + 1;
+        authorisations[msg.sender].authWeight = 10;
     }
+
     function readReport() public constant returns (
         uint age, string gender, uint bodyTemperature, uint heartRate, bool isQunisy, string note, string prescription, address doctor, uint timestamp
     ) {
-        require(authorisations[msg.sender].authWeight == 9);
-        if (reportIndexes.length == 0) {
+        require(authorisations[msg.sender].authWeight >= 9);
+        if (index == 0) {
             return (0, "", 0, 0, false, "", "", address(0), 0);
         } else {
-            uint latest = reportIndexes[reportIndexes.length-1];
+            uint latest = index - 1;
             return (reports[latest].age, reports[latest].gender, reports[latest].bodyTemperature, reports[latest].heartRate, reports[latest].isQunisy, reports[latest].note,reports[latest].prescription,reports[latest].doctor,reports[latest].timestamp);
         }
     }
 }
-

@@ -62,7 +62,6 @@ App = {
       App.contracts.Case.deployed().then(function(instance) {
           caseInstance = instance;
           // Execute adopt as a transaction by sending account
-
           return caseInstance.modifyReport(
             $('#input-age').val(),
             $('#input-gender').val(),
@@ -70,7 +69,8 @@ App = {
             $('#input-heart-rate').val(),
             $('#input-qunisy').val(),
             $('#input-note').val(),
-            $('#input-medicine').val()
+            $('#input-medicine').val(),
+            {from: account}
           );
       })
       .then((res) => {
