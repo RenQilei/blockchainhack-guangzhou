@@ -53,7 +53,7 @@ contract Case {
     
     // Organisation requests to modify
     function requestToModify(address patient) public returns (address requester, uint authWeight) {
-        require(patient == user);
+        //require(patient == user);
         authorisations[msg.sender].authWeight = 8;
         
         return (msg.sender, authorisations[msg.sender].authWeight);

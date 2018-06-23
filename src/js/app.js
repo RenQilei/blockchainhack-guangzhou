@@ -68,13 +68,13 @@ App = {
           caseInstance = instance;
 
           // Execute adopt as a transaction by sending account
-          return caseInstance.requestToModify(account);
+          return caseInstance.requestToModify(patientAddress, {from: account});
       }).then(function(result) {
           console.log(result);
       }).catch(function(err) {
           console.log(err.message);
       });
-  });
+    });
 
     /*
      * Replace me...
