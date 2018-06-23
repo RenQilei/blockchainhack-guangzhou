@@ -1,0 +1,45 @@
+.BiggerGao {
+  height: 71px;
+  font-family: AgencyFB-Reg;
+  font-size: 60px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4a90e2;
+}
+.container {
+  height: 100%;
+}
+.btn-primary {
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 3px;
+  background-color: #ffffff;
+  color: #4a90e2;
+  box-shadow: 0 2px 4px 0 rgba(205, 205, 205, 0.5);
+}
+
+.top-content {
+  margin: 0 auto !important;
+  width: 50%;
+  text-align: center;
+  padding: 25px 0px 25px 0px;
+  border-bottom: 1px solid #ccc;
+}
+.main-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  height: 25%;
+}
+.form-control {
+  border: 1px solid #4a90e2;
+}
+#btn-request-modify, #input-patient-address {
+  max-height: 81px;
+  min-height: 30px;
+}
