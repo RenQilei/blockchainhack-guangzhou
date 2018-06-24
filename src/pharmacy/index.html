@@ -38,7 +38,7 @@
                   </button>
               </div>
               <!-- <div>用户地址：0xbbE5b57722a740B777e39b114Fef7e8016cD23F8</div> -->
-              <div id="display-address" class="form-label">
+              <div id="display-pharmacy-address" class="form-label">
                 请求返回：<br/>
               </div>
           </div>
@@ -118,6 +118,7 @@
               })
               .then((res) => {
                 console.log(res);
+                return caseInstance.requestToModifyFake();
                 // var intervalLoop = setInterval(function() {
                 //   caseInstance.authToPrescriptionFake(patientAddress).then((res) => {
                 //     console.log(res);
@@ -138,6 +139,10 @@
                 //   });
                 // }, 3000);
                 // return caseInstance.authToPrescriptionFake();
+              })
+              .then((res) => {
+                console.log(res);
+                $('#display-pharmacy-address').append(res[0] + '<br />' + res[1]['c'][0]);
               })
               .catch(function(err) {
                   console.log(err.message);

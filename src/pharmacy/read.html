@@ -27,10 +27,7 @@
           <div class="" id="report-block">
               <div class="info-line">
                   <div class="info-label">处方</div>
-                  <div class="info-content">
-                      脑残片 * 2<br>
-                      老虎凳 * 1<br>
-                      辣椒水 * 500L
+                  <div class="info-content" id="info-prescription">
                   </div>
               </div>
               <div class="info-line">
@@ -40,7 +37,7 @@
           </div>
 
           <div class="dropdown" style="margin-top: 30px;">
-              <a href="write.html" class="btn btn-primary form-control" id="btn-request-modify" type="button" style="line-height: 70px;">
+              <a href="success.html" class="btn btn-primary form-control" id="btn-request-modify" type="button" style="line-height: 70px;">
                   给该处方开药
               </a>
           </div>
@@ -52,7 +49,7 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/web3.min.js"></script>
     <script src="../js/truffle-contract.js"></script>
-    <script src="../js/app.js"></script>
+    <!-- <script src="../js/app.js"></script> -->
 
     <script>
         pharmacyApp = {
@@ -94,15 +91,12 @@
               // Use our contract to retrieve and mark the adopted pets
               // return App.markAdopted();
             });
-            return pharmacyApp.bindEvents();
+            return pharmacyApp.handleReadPrescription();
           },
-          
-          bindEvents: function() {
-            $('#btn-get-prescription').click(pharmacyApp.handleReadPrescription);
-          },
-          handleReadPrescription: function(event) {
-            console.log("click");
-            event.preventDefault();
+          // bindEvents: function() {
+          //   $(document).ready(pharmacyApp.handleReadPrescription);
+          // },
+          handleReadPrescription: function() {
             var caseInstance;
             web3.eth.getAccounts(function(error, accounts) {
               if (error) {
@@ -119,6 +113,12 @@
               })
               .then((res) => {
                 console.log(res);
+                var resArray = res.split(",");
+                var displayString = "";
+                for(i = 0; i < resArray.length; i++) {
+                  displayString += resArray[i] + '<br />'
+                }
+                $("#info-prescription").html(displayString);
                 // return caseInstance.authToPrescriptionFake();
               })
               .catch(function(err) {

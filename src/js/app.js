@@ -160,7 +160,7 @@ App = {
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
         console.log("1");
-          console.log(error);
+        console.log(error);
       }
       var account = accounts[0];
       console.log(account);
@@ -176,11 +176,6 @@ App = {
       })
       .then((res) => {
         console.log(res);
-        setInterval(function() {
-          caseInstance.requestToModifyFake().then((res) => {
-            console.log(res);
-          });
-        }, 3000);
         $('#display-address').append(res[0] + '<br />' + res[1]['c'][0]);
       })
       .catch(function(err) {
