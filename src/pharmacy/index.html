@@ -19,30 +19,30 @@
     <![endif]-->
   </head>
   <body>
-    <div class="main-content">
-      <div class="top-content">
-        <div class="BiggerGao">
-          <img src="../images/Bigger_Gao_blue.png">
+      <div class="main-content">
+          <div class="top-content">
+            <div class="BiggerGao">
+              <img src="../images/Bigger_Gao_blue.png">
+            </div>
+            <div class="client-name">药房端</div>
+          </div>
+    
+          <div id="doctor-index-input">
+              <div class="form-group">
+                  <label class="form-label">患者识别码</label>
+                  <input class="form-control" id="input-patient-address" placeholder="患者识别码">
+              </div>
+              <div class="dropdown">
+                  <button class="btn btn-primary form-control" id="btn-request-prescription" type="button">
+                      请求获取药房
+                  </button>
+              </div>
+              <!-- <div>用户地址：0xbbE5b57722a740B777e39b114Fef7e8016cD23F8</div> -->
+              <div id="display-address" class="form-label">
+                请求返回：<br/>
+              </div>
+          </div>
         </div>
-        <div class="client-name">药房端</div>
-      </div>
-
-      <div id="doctor-index-input">
-          <div class="form-group">
-              <input class="form-control" id="input-patient-address" placeholder="患者识别码">
-          </div>
-          <div class="dropdown">
-              <button class="btn btn-primary form-control" id="btn-request-prescription" type="button">
-                  请求获取药方
-              </button>
-              <!-- <button class="btn btn-primary" id="btn-request-read" type="button">
-                  药房
-              </button> -->
-          </div>
-          <div>用户地址：0x6aAAE28f5c9ff99fF535D654EA2fA6C04D110133</div>
-          <div id="display-success"></div>
-      </div>
-    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
