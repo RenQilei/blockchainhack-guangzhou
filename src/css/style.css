@@ -39,18 +39,63 @@ body {
 }
     
 .btn-primary {
-    margin: 0 auto;
+    margin: 0 auto 10px auto;
     width: 100%;
     border-radius: 3px;
     background-color: #ffffff;
     color: #4a90e2;
     box-shadow: 0 2px 4px 0 rgba(205, 205, 205, 0.5);
+    font-size: 24px !important;
 }
     
 .form-control {
     height: 80px;
-    font-size: 24px;
+    font-size: 12px;
     border: 1px solid #4a90e2;
+}
+
+.form-label {
+    font-size: 21px;
+    color: #333333;
+}
+
+.main-read {
+    width: 100% !important;
+    padding: 0 50px 60px 50px !important;
+}
+
+.top-read {
+    width: 100%;
+    height: 70px;
+    padding-top: 10px;
+    border-radius: 0 0 30px 30px;
+    background-image: linear-gradient(to bottom, #00d0ec, #00a3ff);
+    text-align: center;
+}
+
+.info-block {
+    clear: both;
+}
+
+.info-line {
+    clear: both;
+}
+
+.info-label {
+    padding: 5px;
+    width: 50%;
+    float: left;
+    color: #c0c0c0;
+    font-size: 18px;
+}
+
+.info-content {
+    padding: 5px;
+    width: 50%;
+    float: right;
+    align-content: left;
+    color: #494949;
+    font-size: 18px;
 }
 
 /* doctor */
@@ -65,8 +110,14 @@ body {
     color: #ffffff;
 }
 
-/* user */
-#user-index-float-user-icon {
-
+#display-address {
+    margin-top: 20px;
 }
+
+#report-block {
+    margin-top: 30px;
+    border: 1px solid rgba(100, 100, 100, 0.5);
+}
+
+/* user */
     

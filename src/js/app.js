@@ -1,9 +1,18 @@
+var accounts = {
+  "user": "0xbbE5b57722a740B777e39b114Fef7e8016cD23F8",
+  "doctor": "0x72270f654027486282d4455e738E0De22f5049F4",
+  "pharmacy": "0x549333cDaaF0a0D4776c1cea3eD88428bF797163"
+}
+
 App = {
   web3Provider: null,
   contracts: {},
 
   init: function() {
     // Load pets.
+
+    $("#input-patient-address").val(accounts.user);
+
     return App.initWeb3();
   },
 
@@ -49,6 +58,7 @@ App = {
     $(document).on('click', '#btn-input-submit', App.handleModifyReport);
   },
 
+  // 更新病历
   handleModifyReport: function() {
     var caseInstance;
     web3.eth.getAccounts(function(error, accounts) {
@@ -75,12 +85,16 @@ App = {
       })
       .then((res) => {
         console.log(res);
+        // 跳转至成功页面
+        window.location.href="success.html"
       })
       .catch(function(err) {
           console.log(err.message);
       });
     });
   },
+
+  // 读病历
   handleReadReport: function() {
     var caseInstance;
     web3.eth.getAccounts(function(error, accounts) {
@@ -104,6 +118,8 @@ App = {
       });
     });
   },
+
+  // 用户授权医生
   handleAuthRequest: function(event) {
     event.preventDefault();
     var caseInstance;
@@ -134,6 +150,7 @@ App = {
     });
   },
 
+  // 医生请求用户允许访问病历
   handleRequest: function(event) {
     // event.preventDefault();
 
@@ -159,7 +176,7 @@ App = {
       })
       .then((res) => {
         console.log(res);
-        $('#display-address').html(res[0] + '<br />' + res[1]['c'][0]);
+        $('#display-address').append(res[0] + '<br />' + res[1]['c'][0]);
       })
       .catch(function(err) {
           console.log(err.message);
@@ -171,6 +188,9 @@ App = {
 
 $(function() {
   $(window).load(function() {
+    $.getJSON("../accounts.json", function(data) {
+
+    });
     App.init();
   });
 });

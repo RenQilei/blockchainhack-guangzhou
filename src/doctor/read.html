@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Patients</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+    <div class="main-read">
+      <div class="top-read">
+        <div style="font-size: 21px; color: #ffffff;">0xbbE5...D23F8</div>
+        <div style="font-size: 16px; color: rgba(255, 255, 255, 0.6);">患者识别码</div>
+      </div>
+      <div class="" id="report-block">
+          <div class="info-line">
+            <div class="info-label">年龄</div>
+            <div class="info-content">26</div>
+          </div>
+          <div class="info-line">
+              <div class="info-label">性别</div>
+              <div class="info-content">female</div>
+          </div>
+          <div class="info-line">
+              <div class="info-label">体温</div>
+              <div class="info-content">37</div>
+          </div>
+          <div class="info-line">
+              <div class="info-label">心率</div>
+              <div class="info-content">80</div>
+          </div>
+          <div class="info-line">
+              <div class="info-label">是否呕吐</div>
+              <div class="info-content">否</div>
+          </div>
+          <div class="info-line">
+              <div class="info-label">诊断</div>
+              <div class="info-content">神经病犯了</div>
+          </div>
+          <div class="info-line">
+              <div class="info-label">处方</div>
+              <div class="info-content">
+                  脑残片 * 2<br>
+                  老虎凳 * 1<br>
+                  辣椒水 * 500L
+              </div>
+          </div>
+          <div class="info-line">
+              <div class="info-label"></div>
+              <div class="info-content"></div>
+          </div>
+      </div>
+
+      <div class="dropdown" style="margin-top: 30px;">
+          <a href="write.html" class="btn btn-primary form-control" id="btn-request-modify" type="button" style="line-height: 70px;">
+              记录新诊断
+          </a>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/web3.min.js"></script>
+    <script src="../js/truffle-contract.js"></script>
+    <script src="../js/app.js"></script>
+  </body>
+</html>
