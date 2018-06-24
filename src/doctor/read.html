@@ -22,40 +22,37 @@
     
     <div class="main-read">
       <div class="top-read">
-        <div style="font-size: 21px; color: #ffffff;">0xbbE5...D23F8</div>
+        <div style="font-size: 21px; color: #ffffff;" id="info-user-address">0xbbE5...D23F8</div>
         <div style="font-size: 16px; color: rgba(255, 255, 255, 0.6);">患者识别码</div>
       </div>
       <div class="" id="report-block">
           <div class="info-line">
             <div class="info-label">年龄</div>
-            <div class="info-content">26</div>
+            <div class="info-content" id="info-age"></div>
           </div>
           <div class="info-line">
               <div class="info-label">性别</div>
-              <div class="info-content">female</div>
+              <div class="info-content" id="info-gender"></div>
           </div>
           <div class="info-line">
               <div class="info-label">体温</div>
-              <div class="info-content">37</div>
+              <div class="info-content" id="info-temperature"></div>
           </div>
           <div class="info-line">
               <div class="info-label">心率</div>
-              <div class="info-content">80</div>
+              <div class="info-content" id="info-heart-rate"></div>
           </div>
           <div class="info-line">
               <div class="info-label">是否呕吐</div>
-              <div class="info-content">否</div>
+              <div class="info-content" id="info-isqunicy"></div>
           </div>
           <div class="info-line">
               <div class="info-label">诊断</div>
-              <div class="info-content">神经病犯了</div>
+              <div class="info-content" id="info-note"></div>
           </div>
           <div class="info-line">
               <div class="info-label">处方</div>
-              <div class="info-content">
-                  脑残片 * 2<br>
-                  老虎凳 * 1<br>
-                  辣椒水 * 500L
+              <div class="info-content" id="info-prescription">
               </div>
           </div>
           <div class="info-line">
@@ -78,5 +75,94 @@
     <script src="../js/web3.min.js"></script>
     <script src="../js/truffle-contract.js"></script>
     <script src="../js/app.js"></script>
+    <script>
+        doctorReadApp = {
+            web3Provider: null,
+            contracts: {},
+        
+            init: function() {
+            // Load pets.
+            return doctorReadApp.initWeb3();
+            },
+        
+            initWeb3: function() {
+            /*
+                * Replace me...
+                */
+                // Is there an injected web3 instance?
+                if (typeof web3 !== 'undefined') {
+                doctorReadApp.web3Provider = web3.currentProvider;
+                } else {
+                // If no injected web3 instance is detected, fall back to Ganache
+                doctorReadApp.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+                }
+                web3 = new Web3(doctorReadApp.web3Provider);
+                return doctorReadApp.initContract();
+            },
+        
+            initContract: function() {
+            /*
+                * Replace me...
+                */
+            $.getJSON('http://localhost:8001/Case.json', function(data) {
+                // Get the necessary contract artifact file and instantiate it with truffle-contract
+                var CaseArtifact = data;
+                doctorReadApp.contracts.Case = TruffleContract(CaseArtifact);
+            
+                // Set the provider for our contract
+                doctorReadApp.contracts.Case.setProvider(doctorReadApp.web3Provider);
+            
+                // Use our contract to retrieve and mark the adopted pets
+                // return App.markAdopted();
+            });
+                return doctorReadApp.bindEvents();
+            },
+            
+            bindEvents: function() {
+                $(document).ready(doctorReadApp.loadReports);
+            },
+            loadReports: function(event) {
+            var caseInstance;
+            web3.eth.getAccounts(function(error, accounts) {
+                if (error) {
+                console.log("1");
+                    console.log(error);
+                }
+                var account = accounts[0];
+                console.log(account);
+        
+                doctorReadApp.contracts.Case.deployed().then(function(instance) {
+                    caseInstance = instance;
+                    // Execute adopt as a transaction by sending account
+                    return caseInstance.readReport();
+                })
+                .then((res) => {
+                //[r, "female", r, r, true, "神经病犯了", "脑残片 * 2，老虎凳 * 1，辣椒水 * 500L", "0xe0635a2aae0694d61fac1b51bdced2c2afc3f34a", r]
+                    console.log(res[4]);
+                    $("#info-age").html(res[0]['c'][0]);
+                    $("#info-gender").html(res[1]);
+                    $("#info-heart-rate").html(res[2]['c'][0]);
+                    $("#info-temperature").html(res[3]['c'][0]);
+                    $("#info-isqunicy").html(res[4].toString());
+                    $("#info-note").html(res[5]);
+                    $("#info-prescription").html(res[6]);
+
+                // return caseInstance.authToPrescriptionFake();
+                })
+                .catch(function(err) {
+                    console.log(err.message);
+                });
+            });
+            },
+        
+        };
+        
+        $(function() {
+            $(window).load(function() {
+            doctorReadApp.init();
+            });
+        });
+            
+        </script>
   </body>
 </html>

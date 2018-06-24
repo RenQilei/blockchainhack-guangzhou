@@ -1,7 +1,7 @@
 var accounts = {
-  "user": "0xbbE5b57722a740B777e39b114Fef7e8016cD23F8",
-  "doctor": "0x72270f654027486282d4455e738E0De22f5049F4",
-  "pharmacy": "0x549333cDaaF0a0D4776c1cea3eD88428bF797163"
+  "user": "0x6aAAE28f5c9ff99fF535D654EA2fA6C04D110133",
+  "doctor": "0xe0635A2aAe0694D61faC1B51bdCED2c2aFC3f34a",
+  "pharmacy": "0x06978b9D1F3C28710BcbAcbCA909927C57A4C602"
 }
 
 App = {
@@ -172,10 +172,15 @@ App = {
           return caseInstance.requestToModify(patientAddress);
       })
       .then((res) => {
-        return caseInstance.requestToModifyFake(account);
+        return caseInstance.requestToModifyFake();
       })
       .then((res) => {
         console.log(res);
+        setInterval(function() {
+          caseInstance.requestToModifyFake().then((res) => {
+            console.log(res);
+          });
+        }, 3000);
         $('#display-address').append(res[0] + '<br />' + res[1]['c'][0]);
       })
       .catch(function(err) {
@@ -188,9 +193,6 @@ App = {
 
 $(function() {
   $(window).load(function() {
-    $.getJSON("../accounts.json", function(data) {
-
-    });
     App.init();
   });
 });

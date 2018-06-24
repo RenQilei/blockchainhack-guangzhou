@@ -52,7 +52,7 @@ contract Case {
     function requestToModifyFake() public view returns (address requester, uint authWeight) {
         
         // require(authorisations[msg.sender].authWeight == 8);
-        if (authorisations[msg.sender].authWeight == 8 || authorisations[msg.sender].authWeight == 18){
+        if (authorisations[msg.sender].authWeight >= 8 || authorisations[msg.sender].authWeight >= 18){
             return (msg.sender, authorisations[msg.sender].authWeight);
         } else {
             return (address(0), 0);
