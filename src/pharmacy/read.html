@@ -19,30 +19,32 @@
     <![endif]-->
   </head>
   <body>
-    <div class="main-content">
-      <div class="top-content">
-        <div class="BiggerGao">
-          <img src="../images/Bigger_Gao_blue.png">
-        </div>
-        <div class="client-name">药房端</div>
-      </div>
+      <div class="main-read">
+          <div class="top-read">
+            <div style="font-size: 21px; color: #ffffff;">客户最新处方</div>
+            <div style="font-size: 16px; color: rgba(255, 255, 255, 0.6);">药房端</div>
+          </div>
+          <div class="" id="report-block">
+              <div class="info-line">
+                  <div class="info-label">处方</div>
+                  <div class="info-content">
+                      脑残片 * 2<br>
+                      老虎凳 * 1<br>
+                      辣椒水 * 500L
+                  </div>
+              </div>
+              <div class="info-line">
+                  <div class="info-label"></div>
+                  <div class="info-content"></div>
+              </div>
+          </div>
 
-      <div id="doctor-index-input">
-          <div class="form-group">
-              <input class="form-control" id="input-patient-address" placeholder="患者识别码">
+          <div class="dropdown" style="margin-top: 30px;">
+              <a href="write.html" class="btn btn-primary form-control" id="btn-request-modify" type="button" style="line-height: 70px;">
+                  给该处方开药
+              </a>
           </div>
-          <div class="dropdown">
-              <button class="btn btn-primary form-control" id="btn-get-prescription" type="button">
-                  配制药方
-              </button>
-              <!-- <button class="btn btn-primary" id="btn-request-read" type="button">
-                  药房
-              </button> -->
-          </div>
-          <div>用户地址：0x6aAAE28f5c9ff99fF535D654EA2fA6C04D110133</div>
-          <div id="display-success"></div>
       </div>
-    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
