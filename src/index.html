@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Pete's Pet Shop</title>
+  
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../css/style.css" rel="stylesheet"> -->
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+        <div class="jumbotron">
+                <div class="container">
+                  <h1 class="display-3">医疗数据“交易”链</h1>
+                  <h3>RGX.WW (aka. Bigger.Gao)</h3>
+                  
+                  <div style="margin-top: 30px;">
+                      <ul style="font-size: 16px;">
+                          <li>
+                              用户作为患者与医生的数据交互
+                              <ul>
+                                  <li>
+                                      医生申请获取患者的历史病历信息
+                                  </li>
+                                  <li>
+                                      患者授权医生读取并新增病历信息
+                                  </li>
+                                  <li>
+                                      医生读取和新增病历信息
+                                  </li>
+                              </ul>
+                          </li>
+                          <li>
+                              用户作为消费者与药房的数据交互
+                              <ul>
+                                  <li>
+                                      药房申请获取消费者的处方信息
+                                  </li>
+                                  <li>
+                                    消费者授权药房读取处方信息
+                                  </li>
+                                  <li>
+                                      药房根据处方完成配药交易过程
+                                  </li>
+                              </ul>
+                          </li>
+                          <li>
+                              # TODO 用户与其他机构交易其个人医疗数据
+                          </li>
+                      </ul>
+
+                      <style>
+                          ul {
+                              margin: 10px 0;
+                          }
+                          li {
+                              margin: 8px 0;
+                          }
+                      </style>
+                  </div>
+
+                  <div class="alert alert-danger" role="alert" style="margin-top: 30px;">
+                      <h4>DEMO 展示中，可能会出现需要重新编译等意外情况 ：）</h4>
+                  </div>
+                </div>
+              </div>
+        
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/web3.min.js"></script>
+    <script src="../js/truffle-contract.js"></script>
+    <script src="../js/app.js"></script>
+
+</body>
+</html>
