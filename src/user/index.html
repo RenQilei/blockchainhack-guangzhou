@@ -43,13 +43,16 @@
                 class="Group">
         </div>
 
-        <div id="user-index-auth-block" style="display:none;">
+        <div id="user-index-auth-block" style="display:none">
             <div id="doctor-index-input">
                 <div class="form-group">
                     <input class="form-control" id="input-doctor-address" placeholder="医生识别码" readonly>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary form-control" id="btn-request-modify" type="button">
+                    <button class="btn btn-primary form-control" id="btn-accept-auth" type="button" style="display:none;">
+                        同意并授权
+                    </button>
+                    <button class="btn btn-primary form-control" id="btn-accept-auth-pharmacy" type="button" style="display:none;">
                         同意并授权
                     </button>
                     <!-- <button class="btn btn-primary" id="btn-request-read" type="button">
@@ -71,13 +74,13 @@
     
 <!-- 长轮询 -->
 <script>
-App = {
+userApp = {
   web3Provider: null,
   contracts: {},
 
   init: function() {
     // Load pets.
-    return App.initWeb3();
+    return userApp.initWeb3();
   },
 
   initWeb3: function() {
@@ -86,13 +89,13 @@ App = {
      */
      // Is there an injected web3 instance?
       if (typeof web3 !== 'undefined') {
-          App.web3Provider = web3.currentProvider;
+        userApp.web3Provider = web3.currentProvider;
       } else {
       // If no injected web3 instance is detected, fall back to Ganache
-      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+      userApp.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
       }
-      web3 = new Web3(App.web3Provider);
-      return App.initContract();
+      web3 = new Web3(userApp.web3Provider);
+      return userApp.initContract();
   },
 
   initContract: function() {
@@ -102,22 +105,82 @@ App = {
     $.getJSON('http://localhost:8001/Case.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract
       var CaseArtifact = data;
-      App.contracts.Case = TruffleContract(CaseArtifact);
+      userApp.contracts.Case = TruffleContract(CaseArtifact);
     
       // Set the provider for our contract
-      App.contracts.Case.setProvider(App.web3Provider);
+      userApp.contracts.Case.setProvider(App.web3Provider);
     
       // Use our contract to retrieve and mark the adopted pets
       // return App.markAdopted();
     });
-    return App.bindEvents();
+    return userApp.bindEvents();
   },
-
+  
   bindEvents: function() {
 
-    $(document).ready(setInterval(App.checkAuthRequest, 300000));
+    $(document).ready(userApp.checkAuthRequest);
+    $('#btn-accept-auth').click(userApp.handleAuthRequest);
+    $('#btn-accept-auth-pharmacy').click(userApp.handlePharmacyRequest)
   },
+  handlePharmacyRequest: function(event) {
+    console.log("click");
+    event.preventDefault();
+    var caseInstance;
+    var pharmacyAddress = $("#input-doctor-address").val();
+    console.log(pharmacyAddress);
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log("1");
+          console.log(error);
+      }
+      var account = accounts[0];
+      console.log(account);
 
+      userApp.contracts.Case.deployed().then(function(instance) {
+          caseInstance = instance;
+          // Execute adopt as a transaction by sending account
+          return caseInstance.authToPrescription(pharmacyAddress);
+      })
+      .then((res) => {
+        return caseInstance.authToPrescriptionFake(pharmacyAddress);
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(function(err) {
+          console.log(err.message);
+      });
+    });
+  },
+  handleAuthRequest: function(event) {
+    event.preventDefault();
+    var caseInstance;
+    var doctorAddress = $("#input-doctor-address").val();
+    console.log(doctorAddress);
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log("1");
+          console.log(error);
+      }
+      var account = accounts[0];
+      console.log(account);
+
+      userApp.contracts.Case.deployed().then(function(instance) {
+          caseInstance = instance;
+          // Execute adopt as a transaction by sending account
+          return caseInstance.authToModify(doctorAddress);
+      })
+      .then((res) => {
+        return caseInstance.authToModifyFake(doctorAddress);
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(function(err) {
+          console.log(err.message);
+      });
+    });
+  },
   checkAuthRequest: function(event) {
       // event.preventDefault();
       var caseInstance;
@@ -131,22 +194,29 @@ App = {
         var account = accounts[0];
         console.log(account);
 
-        App.contracts.Case.deployed().then(function(instance) {
-            caseInstance = instance;
-            // Execute adopt as a transaction by sending account
-            return caseInstance.requestToModifyFake();
-        })
-        .then((res) => {
-          console.log(res);
-          if (res[1]['c'][0] == 8) {
-            console.log(res[1]['c'][0]);
-            $("#user-index-auth-block").show();
-            $("#input-doctor-address").val(res[0]);
-          }
-        })
-        .catch(function(err) {
-            console.log(err.message);
-        });
+
+        var intervalLoop = setInterval(function(){
+
+          userApp.contracts.Case.deployed().then(function(instance) {
+              caseInstance = instance;
+              // Execute adopt as a transaction by sending account
+              return caseInstance.requestToModifyFake();
+          })
+          .then((res) => {
+            console.log(res);
+            if (res[1]['c'][0] == 8 || res[1]['c'][0] == 18) {
+              clearInterval(intervalLoop);
+              console.log(res[1]['c'][0]);
+              $("#user-index-auth-block").show();
+              $("#input-doctor-address").val(res[0]);
+              if (res[1]['c'][0] == 8) $('#btn-accept-auth').show();
+              else $('#btn-accept-auth-pharmacy').show();
+            }
+          })
+          .catch(function(err) {
+              console.log(err.message);
+          });
+        }, 3000);
       });
   }
 
@@ -154,7 +224,7 @@ App = {
 
 $(function() {
   $(window).load(function() {
-    App.init();
+    userApp.init();
   });
 });
     

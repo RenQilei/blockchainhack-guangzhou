@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Patients</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="main-content">
+      <div class="top-content">
+        <div class="BiggerGao">
+          <img src="../images/Bigger_Gao_blue.png">
+        </div>
+        <div class="client-name">药房端</div>
+      </div>
+
+      <div id="doctor-index-input">
+          <div class="form-group">
+              <input class="form-control" id="input-patient-address" placeholder="患者识别码">
+          </div>
+          <div class="dropdown">
+              <button class="btn btn-primary form-control" id="btn-get-prescription" type="button">
+                  配制药方
+              </button>
+              <!-- <button class="btn btn-primary" id="btn-request-read" type="button">
+                  药房
+              </button> -->
+          </div>
+          <div>用户地址：0x6aAAE28f5c9ff99fF535D654EA2fA6C04D110133</div>
+          <div id="display-success"></div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/web3.min.js"></script>
+    <script src="../js/truffle-contract.js"></script>
+    <script src="../js/app.js"></script>
+
+    <script>
+        pharmacyApp = {
+          web3Provider: null,
+          contracts: {},
+        
+          init: function() {
+            // Load pets.
+            return pharmacyApp.initWeb3();
+          },
+        
+          initWeb3: function() {
+            /*
+             * Replace me...
+             */
+             // Is there an injected web3 instance?
+              if (typeof web3 !== 'undefined') {
+                pharmacyApp.web3Provider = web3.currentProvider;
+              } else {
+              // If no injected web3 instance is detected, fall back to Ganache
+              pharmacyApp.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+              }
+              web3 = new Web3(pharmacyApp.web3Provider);
+              return pharmacyApp.initContract();
+          },
+        
+          initContract: function() {
+            /*
+             * Replace me...
+             */
+            $.getJSON('http://localhost:8001/Case.json', function(data) {
+              // Get the necessary contract artifact file and instantiate it with truffle-contract
+              var CaseArtifact = data;
+              pharmacyApp.contracts.Case = TruffleContract(CaseArtifact);
+            
+              // Set the provider for our contract
+              pharmacyApp.contracts.Case.setProvider(pharmacyApp.web3Provider);
+            
+              // Use our contract to retrieve and mark the adopted pets
+              // return App.markAdopted();
+            });
+            return pharmacyApp.bindEvents();
+          },
+          
+          bindEvents: function() {
+            $('#btn-get-prescription').click(pharmacyApp.handleReadPrescription);
+          },
+          handleReadPrescription: function(event) {
+            console.log("click");
+            event.preventDefault();
+            var caseInstance;
+            web3.eth.getAccounts(function(error, accounts) {
+              if (error) {
+                console.log("1");
+                  console.log(error);
+              }
+              var account = accounts[0];
+              console.log(account);
+        
+              pharmacyApp.contracts.Case.deployed().then(function(instance) {
+                  caseInstance = instance;
+                  // Execute adopt as a transaction by sending account
+                  return caseInstance.getPrescription();
+              })
+              .then((res) => {
+                console.log(res);
+                // return caseInstance.authToPrescriptionFake();
+              })
+              .catch(function(err) {
+                  console.log(err.message);
+              });
+            });
+          },
+      
+        };
+        
+        $(function() {
+          $(window).load(function() {
+            pharmacyApp.init();
+          });
+        });
+            
+        </script>
+  </body>
+</html>

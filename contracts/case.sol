@@ -51,9 +51,13 @@ contract Case {
     // Organisation requests to modify
     function requestToModifyFake() public view returns (address requester, uint authWeight) {
         
-        require(authorisations[msg.sender].authWeight == 8);
+        // require(authorisations[msg.sender].authWeight == 8);
+        if (authorisations[msg.sender].authWeight == 8 || authorisations[msg.sender].authWeight == 18){
+            return (msg.sender, authorisations[msg.sender].authWeight);
+        } else {
+            return (address(0), 0);
+        }
         
-        return (msg.sender, authorisations[msg.sender].authWeight);
     }
     function requestToModify(address patient) public returns (address requester, uint authWeight) {
         
@@ -93,6 +97,41 @@ contract Case {
         } else {
             uint latest = index - 1;
             return (reports[latest].age, reports[latest].gender, reports[latest].bodyTemperature, reports[latest].heartRate, reports[latest].isQunisy, reports[latest].note,reports[latest].prescription,reports[latest].doctor,reports[latest].timestamp);
+        }
+    }
+    function requestToPrescription(address patient) public returns (address requester, uint authWeight) {
+        authorisations[msg.sender].authWeight = 18;
+        
+        return (msg.sender, authorisations[msg.sender].authWeight);
+    }
+    // function requestToPrescriptionFake() public view returns (address requester, uint authWeight) {
+    //     if (authorisations[msg.sender].authWeight == 18){
+    //         return (msg.sender, authorisations[msg.sender].authWeight);
+    //     } else {
+    //         return (address(0), 0);
+    //     }
+    //     return (msg.sender, authorisations[msg.sender].authWeight);
+    // }
+
+    function authToPrescription(address authUser) public returns (address requester, uint authWeight) {
+        //require(authorisations[authUser].authWeight == 18);
+        authorisations[authUser].authWeight = 19;
+        // authorisations[authUser].authWeight = 9;
+        return (authUser, authorisations[authUser].authWeight);
+    }
+    function authToPrescriptionFake(address authUser) public view returns (address requester, uint authWeight) {
+        // require(authorisations[authUser].authWeight == 19);
+        // authorisations[authUser].authWeight = 9;
+        return (authUser, authorisations[authUser].authWeight);
+    }
+
+    function getPrescription() public view returns (string prescription) {
+        require(authorisations[msg.sender].authWeight == 19);
+        if (index == 0) {
+            return "";
+        } else {
+            uint latest = index - 1;
+            return (reports[latest].prescription);
         }
     }
 }

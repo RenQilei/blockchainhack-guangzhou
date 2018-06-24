@@ -42,7 +42,7 @@ App = {
 
   bindEvents: function() {
     $(document).on('click', '#btn-request-modify', App.handleRequest);
-    $(document).on('click', '#btn-accept-auth', App.handleAuthRequest);
+    // $('#btn-accept-auth').click(App.handleAuthRequest);
     $(document).on('click', '#btn-request-diagnose', App.handleDiagnose);
     // $('#case-display').ready(App.handleReadReport);
     $(document).on('click', '#btn-request-read', App.handleReadReport);
@@ -155,7 +155,7 @@ App = {
           return caseInstance.requestToModify(patientAddress);
       })
       .then((res) => {
-        return caseInstance.requestToModifyFake(patientAddress);
+        return caseInstance.requestToModifyFake(account);
       })
       .then((res) => {
         console.log(res);
